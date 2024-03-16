@@ -36,7 +36,7 @@ public class SliceInfo : MonoBehaviour
             multiplier = value;
             if (multiplierText != null)
             {
-                multiplierText.text = multiplier.ToString();
+                multiplierText.text = $"X {multiplier.ToString()}";
             }
         }
     }
