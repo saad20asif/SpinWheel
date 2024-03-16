@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +13,13 @@ public class SpinTheWheel : MonoBehaviour
     private float _spinStartTime;
 
     [SerializeField] IntVariable TotalSlicesSo;
+    [SerializeField] IntVariable multiplierSo;
+    [SerializeField] IntVariable coinsSo;
     [SerializeField] SpinWheelConfigurationsSo SpinWheelConfig;
+    [SerializeField] JsonReaderSO JsonReaderSO;
     [SerializeField] Button SpinBtn;
+
+    public static Action<int> SpinWheelStopedAction;
 
     private void OnEnable()
     {
@@ -27,11 +33,14 @@ public class SpinTheWheel : MonoBehaviour
 
     private void SetTheStopIndex()
     {
+        TotalSlicesSo.value = JsonReaderSO.data.rewards.Length;
         SpinWheelConfig.StopIndex = SpinWheelConfig.StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
         _stopIndexBackEnd = SpinWheelConfig.StopIndex + (SpinWheelConfig.LeastCycles * TotalSlicesSo.value);
+        multiplierSo.value = JsonReaderSO.data.rewards[SpinWheelConfig.StopIndex].multiplier;
+        coinsSo.value = JsonReaderSO.data.coins;
     }
 
-    public void SpinWheel()
+    private void SpinWheel()
     {
         if (!_isSpinning)
         {
@@ -69,6 +78,9 @@ public class SpinTheWheel : MonoBehaviour
             }
             yield return null;
         }
+
+        if (SpinWheelStopedAction != null)
+            SpinWheelStopedAction(SpinWheelConfig.StopIndex);
         SpinBtn.interactable = true;
     }
 }

@@ -15,6 +15,7 @@ public class GenericSlicesGenerator : MonoBehaviour
     [SerializeField] Transform SlicesParent;
     [SerializeField] JsonReaderSO JsonReaderSO;
     [SerializeField] IntVariable TotalSlicesSo;
+    
 
 
     [Button("Generate Spin Wheel Slices")]
