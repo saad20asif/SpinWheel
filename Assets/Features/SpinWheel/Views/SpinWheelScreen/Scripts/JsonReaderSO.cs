@@ -9,6 +9,23 @@ public class SpinnerWheelSlice
     public int multiplier;
     public float probability;
     public string color;
+
+    public Color Color
+    {
+        get
+        {
+            Color parsedColor;
+            if (ColorUtility.TryParseHtmlString(color, out parsedColor))
+            {
+                return parsedColor;
+            }
+            else
+            {
+                Debug.LogError("Failed to parse color from string: " + color);
+                return Color.white; // Return default color if parsing fails
+            }
+        }
+    }
 }
 
 [System.Serializable]
@@ -20,41 +37,28 @@ public class ConfigData
 }
 
 [CreateAssetMenu(fileName = "JsonReaderData", menuName = "ScriptableObjects/JsonReaderSO", order = 1)]
-public class JsonReaderSO : ScriptableObject
+public class JsonReaderSO : JsonReaderBase<ConfigData>
 {
     public ConfigData slicesData;
     [SerializeField] private string jsonFilePath; // Assign your JSON string in the Inspector
 
+
     public void LoadDataFromFile()
     {
-        if (string.IsNullOrEmpty(jsonFilePath))
-        {
-            Debug.LogError("JSON file path is not set in the Inspector!");
-            return;
-        }
-
         string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
-
-        if (File.Exists(filePath))
+        LoadData(filePath);
+        ConfigData configData = data;
+        slicesData.rewards = new SpinnerWheelSlice[configData.rewards.Length];
+        slicesData.coins = configData.coins;
+        slicesData.totalSlices = configData.rewards.Length;
+        for (int i = 0; i < configData.rewards.Length; i++)
         {
-            string jsonString = File.ReadAllText(filePath);
+            slicesData.rewards[i] = new SpinnerWheelSlice();
+            slicesData.rewards[i].multiplier = configData.rewards[i].multiplier;
+            slicesData.rewards[i].probability = configData.rewards[i].probability;
+            slicesData.rewards[i].color = configData.rewards[i].color;
+        }
 
-            ConfigData configData = JsonUtility.FromJson<ConfigData>(jsonString);
-            slicesData.rewards = new SpinnerWheelSlice[configData.rewards.Length];
-            slicesData.coins = configData.coins;
-            slicesData.totalSlices = configData.rewards.Length;
-            for (int i = 0; i < configData.rewards.Length; i++)
-            {
-                slicesData.rewards[i] = new SpinnerWheelSlice();
-                slicesData.rewards[i].multiplier = configData.rewards[i].multiplier;
-                slicesData.rewards[i].probability = configData.rewards[i].probability;
-                slicesData.rewards[i].color = configData.rewards[i].color;
-            }
-        }
-        else
-        {
-            Debug.LogError("JSON file not found at path: " + filePath);
-        }
     }
     public void ResetData()
     {

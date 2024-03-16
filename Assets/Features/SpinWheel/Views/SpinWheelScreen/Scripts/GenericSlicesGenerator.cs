@@ -65,6 +65,10 @@ public class GenericSlicesGenerator : MonoBehaviour
                 rotationAngle += rotateBy;
             }
             slice.GetComponent<MPImage>().color = colors[i];
+            slice.GetComponent<SliceInfo>().Probability = jsonReaderSO.slicesData.rewards[i].probability;
+            slice.GetComponent<SliceInfo>().Multiplier = jsonReaderSO.slicesData.rewards[i].multiplier;
+            slice.GetComponent<SliceInfo>().SetColor(jsonReaderSO.slicesData.rewards[i].Color);
+
         }
     }
 }
