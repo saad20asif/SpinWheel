@@ -2,6 +2,7 @@ using MPUIKIT;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+// Note : No.of slices inside spin wheel depends on your json file
 public class GenericSlicesGenerator : MonoBehaviour
 {
     int minLimit = 2;
@@ -9,7 +10,7 @@ public class GenericSlicesGenerator : MonoBehaviour
     float offset = -200;
     private int totalSlicesInsideWheel;
 
-    [SerializeField] string prefabName;
+    [SerializeField] string spinWheelSlicePrefabName;
  
     [SerializeField] Transform slicesParent;
     [SerializeField] JsonReaderSO jsonReaderSO;
@@ -53,7 +54,7 @@ public class GenericSlicesGenerator : MonoBehaviour
         float rotateBy = rotationAngle;
         for (int i=0;i<totalSlicesInsideWheel;i++)
         {
-            slice = Instantiate(Resources.Load(prefabName), slicesParent) as GameObject;
+            slice = Instantiate(Resources.Load(spinWheelSlicePrefabName), slicesParent) as GameObject;
             slice.name = $"Slice No.{i}";
             Vector3 textOffset = new Vector2(offset / 2.6117f, offset);
 
