@@ -5,15 +5,21 @@ using UnityEngine;
 public class GenericSlicesGenerator : MonoBehaviour
 {
     [SerializeField] string prefabName;
-    [SerializeField] int totalSlicesInsideWheel;
+    private int totalSlicesInsideWheel;
     [SerializeField] Color[] colors;
     int minLimit = 2;
     int maxLimit = 12;
+    float offset = -200;
+    [SerializeField] int coinsValue;
+
+    [SerializeField] JsonReaderSO jsonReaderSO;
 
 
     [Button("Generate Spin Wheel Slices")]
     private void GenerateSpinWheelSlices()
     {
+        LoadFromJson();
+        totalSlicesInsideWheel = jsonReaderSO.slicesData.totalSlices;
         if (totalSlicesInsideWheel >= minLimit && totalSlicesInsideWheel <= maxLimit)
         {
             Regenerate();
@@ -21,6 +27,12 @@ public class GenericSlicesGenerator : MonoBehaviour
         }
         else
             Debug.LogError($"Out of Range!! No of slices must be between {minLimit} to {maxLimit}");
+    }
+    //[Button("Load Data From Json")]
+    private void LoadFromJson()
+    {
+        jsonReaderSO.ResetData();
+        jsonReaderSO.LoadDataFromFile();
     }
     private void Regenerate()
     {
@@ -43,6 +55,9 @@ public class GenericSlicesGenerator : MonoBehaviour
         {
             slice = Instantiate(Resources.Load(prefabName), transform) as GameObject;
             slice.name = $"Slice No.{i}";
+            Vector3 textOffset = new Vector2(offset / 2.6117f, offset);
+
+            //slice.GetComponent<CenterTextAndIcon>().SetPositions();
             slice.GetComponent<MPImage>().fillAmount = sliceFillAmount;
             if(i>0)
             {
