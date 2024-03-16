@@ -12,15 +12,16 @@ public class GenericSlicesGenerator : MonoBehaviour
 
     [SerializeField] string spinWheelSlicePrefabName;
  
-    [SerializeField] Transform slicesParent;
-    [SerializeField] JsonReaderSO jsonReaderSO;
+    [SerializeField] Transform SlicesParent;
+    [SerializeField] JsonReaderSO JsonReaderSO;
+    [SerializeField] IntVariable TotalSlicesSo;
 
 
     [Button("Generate Spin Wheel Slices")]
     private void GenerateSpinWheelSlices()
     {
         LoadFromJson();
-        totalSlicesInsideWheel = jsonReaderSO.slicesData.totalSlices;
+        totalSlicesInsideWheel = TotalSlicesSo.value;
         if (totalSlicesInsideWheel >= minLimit && totalSlicesInsideWheel <= maxLimit)
         {
             Regenerate();
@@ -32,16 +33,16 @@ public class GenericSlicesGenerator : MonoBehaviour
     //[Button("Load Data From Json")]
     private void LoadFromJson()
     {
-        jsonReaderSO.ResetData();
-        jsonReaderSO.LoadDataFromFile();
+        JsonReaderSO.ResetData();
+        JsonReaderSO.LoadDataFromFile();
     }
     private void Regenerate()
     {
-        slicesParent.localEulerAngles = Vector3.zero;
-        int childCount = slicesParent.childCount;
+        SlicesParent.localEulerAngles = Vector3.zero;
+        int childCount = SlicesParent.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
-            DestroyImmediate(slicesParent.GetChild(i).gameObject);
+            DestroyImmediate(SlicesParent.GetChild(i).gameObject);
         }
     }
 
@@ -53,12 +54,12 @@ public class GenericSlicesGenerator : MonoBehaviour
         float sliceFillAmount = 1f / totalSlicesInsideWheel; // Use 1f for float division
         float rotationAngle = 0f; // Start rotation angle at 0
         float rotateBy = 360f / totalSlicesInsideWheel; // Calculate the rotation increment
-        slicesParent.localEulerAngles = Vector3.zero;
-        slicesParent.Rotate(0, 0, -rotateBy / 2); // to keep it in center
+        SlicesParent.localEulerAngles = Vector3.zero;
+        SlicesParent.Rotate(0, 0, -rotateBy / 2); // to keep it in center
 
         for (int i = 0; i < totalSlicesInsideWheel; i++)
         {
-            slice = Instantiate(Resources.Load(spinWheelSlicePrefabName), slicesParent) as GameObject;
+            slice = Instantiate(Resources.Load(spinWheelSlicePrefabName), SlicesParent) as GameObject;
             slice.name = $"Slice No.{i}";
 
             slice.GetComponent<MPImage>().fillAmount = sliceFillAmount;
@@ -74,9 +75,9 @@ public class GenericSlicesGenerator : MonoBehaviour
                 rotationAngle += 360f;
             }
 
-            slice.GetComponent<SliceInfo>().Probability = jsonReaderSO.slicesData.rewards[i].probability;
-            slice.GetComponent<SliceInfo>().Multiplier = jsonReaderSO.slicesData.rewards[i].multiplier;
-            slice.GetComponent<SliceInfo>().SetColor(jsonReaderSO.slicesData.rewards[i].Color);
+            slice.GetComponent<SliceInfo>().Probability = JsonReaderSO.data.rewards[i].probability;
+            slice.GetComponent<SliceInfo>().Multiplier = JsonReaderSO.data.rewards[i].multiplier;
+            slice.GetComponent<SliceInfo>().SetColor(JsonReaderSO.data.rewards[i].Color);
         }
     }
 

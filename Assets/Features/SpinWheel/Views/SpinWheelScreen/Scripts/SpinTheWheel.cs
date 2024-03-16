@@ -3,24 +3,34 @@ using UnityEngine;
 
 public class SpinTheWheel : MonoBehaviour
 {
-    public Transform spinnerTransform;
-    public float spinDuration = 3f; // Duration in seconds for the spinner to spin
-    public int stopIndex = 0; // Index where the spinner should stop (0 for the first slice)
+    public Transform ObjectToRotate;
+    public float SpinDuration = 3f; // Duration in seconds for the spinner to spin
+    public int StopIndex = 0; // Index where the spinner should stop (0 for the first slice)
+    public int LeastCycles = 1; // if value is 1, then spinner will spin atleast one time 360 before stopping at choosen index
 
-    private bool isSpinning = false;
-    private float targetRotation;
-    private float spinStartTime;
+    private int _stopIndexBackEnd;
+    private bool _isSpinning = false;
+    private float _targetRotation;
+    private float _spinStartTime;
+
+    [SerializeField] IntVariable TotalSlicesSo;
 
     void Start()
     {
+        SetTheStopIndex();
         // Calculate the target rotation angle based on the stop index
-        targetRotation = stopIndex * 45f; // Assuming each slice is 45 degrees
+        _targetRotation = _stopIndexBackEnd * (360/ TotalSlicesSo.value); // Assuming each slice is 45 degrees
         SpinWheel();
+    }
+    private void SetTheStopIndex()
+    {
+        StopIndex = StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
+        _stopIndexBackEnd = StopIndex + (LeastCycles * TotalSlicesSo.value);
     }
 
     public void SpinWheel()
     {
-        if (!isSpinning)
+        if (!_isSpinning)
         {
             // Start spinning coroutine
             StartCoroutine(SpinCoroutine());
@@ -29,24 +39,24 @@ public class SpinTheWheel : MonoBehaviour
 
     private IEnumerator SpinCoroutine()
     {
-        isSpinning = true;
-        spinStartTime = Time.time;
+        _isSpinning = true;
+        _spinStartTime = Time.time;
 
-        while (isSpinning)
+        while (_isSpinning)
         {
-            float elapsed = Time.time - spinStartTime;
-            float t = elapsed / spinDuration;
-            float currentRotation = Mathf.SmoothStep(0f, targetRotation, t);
+            float elapsed = Time.time - _spinStartTime;
+            float t = elapsed / SpinDuration;
+            float currentRotation = Mathf.SmoothStep(0f, _targetRotation, t);
 
             // Apply rotation to the spinner transform
-            spinnerTransform.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+            ObjectToRotate.rotation = Quaternion.Euler(0f, 0f, currentRotation);
 
             // Check if spinning should stop
-            if (elapsed >= spinDuration)
+            if (elapsed >= SpinDuration)
             {
-                isSpinning = false;
+                _isSpinning = false;
                 // Optionally, you can adjust the rotation to align perfectly with the target angle
-                spinnerTransform.rotation = Quaternion.Euler(0f, 0f, targetRotation);
+                ObjectToRotate.rotation = Quaternion.Euler(0f, 0f, _targetRotation);
             }
 
             yield return null;
