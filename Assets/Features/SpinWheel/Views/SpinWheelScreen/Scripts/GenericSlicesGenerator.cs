@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GenericSlicesGenerator : MonoBehaviour
 {
-    [SerializeField] string prefabName;
-    private int totalSlicesInsideWheel;
-    [SerializeField] Color[] colors;
     int minLimit = 2;
     int maxLimit = 12;
     float offset = -200;
-    [SerializeField] int coinsValue;
+    private int totalSlicesInsideWheel;
 
+    [SerializeField] string prefabName;
+ 
+    [SerializeField] Transform slicesParent;
     [SerializeField] JsonReaderSO jsonReaderSO;
 
 
@@ -36,10 +36,10 @@ public class GenericSlicesGenerator : MonoBehaviour
     }
     private void Regenerate()
     {
-        int childCount = transform.childCount;
+        int childCount = slicesParent.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
-            DestroyImmediate(transform.GetChild(i).gameObject);
+            DestroyImmediate(slicesParent.GetChild(i).gameObject);
         }
     }
 
@@ -53,7 +53,7 @@ public class GenericSlicesGenerator : MonoBehaviour
         float rotateBy = rotationAngle;
         for (int i=0;i<totalSlicesInsideWheel;i++)
         {
-            slice = Instantiate(Resources.Load(prefabName), transform) as GameObject;
+            slice = Instantiate(Resources.Load(prefabName), slicesParent) as GameObject;
             slice.name = $"Slice No.{i}";
             Vector3 textOffset = new Vector2(offset / 2.6117f, offset);
 
@@ -64,7 +64,6 @@ public class GenericSlicesGenerator : MonoBehaviour
                 slice.transform.Rotate(0, 0, rotationAngle);
                 rotationAngle += rotateBy;
             }
-            slice.GetComponent<MPImage>().color = colors[i];
             slice.GetComponent<SliceInfo>().Probability = jsonReaderSO.slicesData.rewards[i].probability;
             slice.GetComponent<SliceInfo>().Multiplier = jsonReaderSO.slicesData.rewards[i].multiplier;
             slice.GetComponent<SliceInfo>().SetColor(jsonReaderSO.slicesData.rewards[i].Color);
