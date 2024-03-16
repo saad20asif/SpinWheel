@@ -37,6 +37,7 @@ public class GenericSlicesGenerator : MonoBehaviour
     }
     private void Regenerate()
     {
+        slicesParent.localEulerAngles = Vector3.zero;
         int childCount = slicesParent.childCount;
         for (int i = childCount - 1; i >= 0; i--)
         {
@@ -49,26 +50,35 @@ public class GenericSlicesGenerator : MonoBehaviour
     private void SpawnSlices()
     {
         GameObject slice;
-        float sliceFillAmount = 1 / (float)totalSlicesInsideWheel;
-        float rotationAngle = 360 / (float)totalSlicesInsideWheel;
-        float rotateBy = rotationAngle;
-        for (int i=0;i<totalSlicesInsideWheel;i++)
+        float sliceFillAmount = 1f / totalSlicesInsideWheel; // Use 1f for float division
+        float rotationAngle = 0f; // Start rotation angle at 0
+        float rotateBy = 360f / totalSlicesInsideWheel; // Calculate the rotation increment
+        slicesParent.localEulerAngles = Vector3.zero;
+        slicesParent.Rotate(0, 0, -rotateBy / 2); // to keep it in center
+
+        for (int i = 0; i < totalSlicesInsideWheel; i++)
         {
             slice = Instantiate(Resources.Load(spinWheelSlicePrefabName), slicesParent) as GameObject;
             slice.name = $"Slice No.{i}";
-            Vector3 textOffset = new Vector2(offset / 2.6117f, offset);
 
-            //slice.GetComponent<CenterTextAndIcon>().SetPositions();
             slice.GetComponent<MPImage>().fillAmount = sliceFillAmount;
-            if(i>0)
+
+            slice.transform.Rotate(0, 0, rotationAngle); // Rotate the slice by the current rotation angle
+
+            // Update the rotation angle for the next slice
+            rotationAngle -= rotateBy; // Subtract rotateBy for clockwise rotation
+
+            // Ensure rotation stays within 0-360 range
+            if (rotationAngle < 0f)
             {
-                slice.transform.Rotate(0, 0, rotationAngle);
-                rotationAngle += rotateBy;
+                rotationAngle += 360f;
             }
+
             slice.GetComponent<SliceInfo>().Probability = jsonReaderSO.slicesData.rewards[i].probability;
             slice.GetComponent<SliceInfo>().Multiplier = jsonReaderSO.slicesData.rewards[i].multiplier;
             slice.GetComponent<SliceInfo>().SetColor(jsonReaderSO.slicesData.rewards[i].Color);
-
         }
     }
+
+
 }
