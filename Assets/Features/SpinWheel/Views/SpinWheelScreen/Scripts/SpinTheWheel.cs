@@ -17,6 +17,8 @@ public class SpinTheWheel : MonoBehaviour
     [SerializeField] IntVariable multiplierSo;
     [SerializeField] IntVariable coinsSo;
     [SerializeField] JsonReaderSO JsonReaderSO;
+    [SerializeField] ProbabilityBaseRandomChooser ProbabilityBaseRandomChooser;
+    
     [SerializeField] Button SpinBtn;
 
     [Header("Config File")]
@@ -53,11 +55,16 @@ public class SpinTheWheel : MonoBehaviour
         coinsSo.value = JsonReaderSO.data.coins;
     }
 
+    private void ChooseProbabiltyBaseRandomIndex()
+    {
+        SpinWheelConfig.StopIndex = ProbabilityBaseRandomChooser.ChooseRandomValue();
+    }
     private void SpinWheel()
     {
         if (!_isSpinning)
         {
             SpinBtn.interactable = false;
+            ChooseProbabiltyBaseRandomIndex();
             SetTheStopIndex();
             // Calculate the target rotation angle based on the stop index and rotation direction
             float rotationMultiplier = SpinWheelConfig.RotationDirection == RotationDirection.Clockwise ? -1f : 1f;

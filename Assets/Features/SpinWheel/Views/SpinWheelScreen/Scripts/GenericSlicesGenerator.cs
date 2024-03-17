@@ -15,7 +15,14 @@ public class GenericSlicesGenerator : MonoBehaviour
     [SerializeField] Transform SlicesParent;
     [SerializeField] JsonReaderSO JsonReaderSO;
     [SerializeField] IntVariable TotalSlicesSo;
-    
+
+    private void Start()
+    {
+        // If SpinWheel not generated in editor mode or maybe you have changed some values in json later on
+        // So i must redraw everytime the game plays
+        GenerateSpinWheelSlices();
+    }
+
 
 
     [Button("Generate Spin Wheel Slices")]

@@ -35,12 +35,13 @@ public class ConfigData
     public SpinnerWheelSlice[] rewards;
 }
 
-[CreateAssetMenu(fileName = "JsonReaderData", menuName = "ScriptableObjects/JsonReaderSO", order = 1)]
+[CreateAssetMenu(fileName = "JsonReaderData", menuName = "ScriptableObjects/JsonReaderSO", order = 2)]
 public class JsonReaderSO : JsonReaderBase<ConfigData>
 {
     //public ConfigData slicesData;
     [SerializeField] private IntVariable _totalCoinsSo;
     [SerializeField] private IntVariable _totalSlicesSo;
+    [SerializeField] ProbabilityBaseRandomChooser ProbabilityBaseRandomChooser;
     [SerializeField] private string jsonFilePath; // Assign your JSON string in the Inspector
 
 
@@ -48,10 +49,19 @@ public class JsonReaderSO : JsonReaderBase<ConfigData>
     {
         string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
         LoadData(filePath);
-        ConfigData configData = data;
+        AssignValuesToRandomChooseSo();
         _totalSlicesSo.value = data.rewards.Length;
         _totalCoinsSo.value = data.coins;
-        //data.totalSlices = data.rewards.Length;
+    }
+    private void AssignValuesToRandomChooseSo()
+    {
+        ProbabilityBaseRandomChooser.Values = new int[data.rewards.Length];
+        ProbabilityBaseRandomChooser.Probabilities = new float[data.rewards.Length];
+        for (int i=0;i< data.rewards.Length;i++)
+        {
+            ProbabilityBaseRandomChooser.Values[i] = i;
+            ProbabilityBaseRandomChooser.Probabilities[i] = data.rewards[i].probability;
+        }
     }
     public void ResetData()
     {
