@@ -43,6 +43,9 @@ public class SpinTheWheel : MonoBehaviour
     {
         TotalSlicesSo.value = JsonReaderSO.data.rewards.Length;
         SpinWheelConfig.StopIndex = SpinWheelConfig.StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
+        multiplierSo.value = JsonReaderSO.data.rewards[SpinWheelConfig.StopIndex].multiplier;
+        coinsSo.value = JsonReaderSO.data.coins;
+
         _stopIndexTemp = SpinWheelConfig.StopIndex;
 
         
@@ -59,8 +62,6 @@ public class SpinTheWheel : MonoBehaviour
             rotateCyclesBeforeStopping = SpinWheelConfig.RotateCyclesBeforeStopping = 1;
         }
         _stopIndexBackEnd = _stopIndexTemp + (rotateCyclesBeforeStopping * TotalSlicesSo.value);
-        multiplierSo.value = JsonReaderSO.data.rewards[_stopIndexTemp].multiplier;
-        coinsSo.value = JsonReaderSO.data.coins;
     }
 
     private void ChooseProbabiltyBaseRandomIndex()
@@ -110,7 +111,7 @@ public class SpinTheWheel : MonoBehaviour
         MPImage selectedImage = SlicesParent.GetChild(SpinWheelConfig.StopIndex).GetComponent<MPImage>();
         EffectsSo.GlowImage(selectedImage);
         if (SpinWheelStopedAction != null)
-            SpinWheelStopedAction(_stopIndexTemp);
+            SpinWheelStopedAction(SpinWheelConfig.StopIndex);
         SpinBtn.interactable = true;
     }
 }

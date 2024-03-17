@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SpinnerSliceGlowEffect
   m_EditorClassIdentifier: 
   _imageToGlow: {fileID: 0}
-  _glowColor: {r: 1, g: 0.9716981, b: 0.9716981, a: 0.2}
+  _glowColor: {r: 1, g: 0.9716981, b: 0.9716981, a: 0.29803923}
   _glowDuration: 0.2
   _loopCount: 3
