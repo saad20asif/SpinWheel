@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d3615ca69ea39439bbae248b6e39e3, type: 3}
   m_Name: SpinWheelConfig
   m_EditorClassIdentifier: 
-  SpinDuration: 3
-  StopIndex: 2
-  LeastCycles: 2
-  RotationDirection: 1
+  SpinDuration: 2
+  StopIndex: 7
+  RotateCyclesBeforeStopping: 10
+  RotationDirection: 0
   RotationCurve:
     serializedVersion: 2
     m_Curve:

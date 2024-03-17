@@ -8,6 +8,7 @@ public class SpinTheWheel : MonoBehaviour
     public Transform ObjectToRotate;
 
     private int _stopIndexBackEnd;
+    int _stopIndexTemp;
     private bool _isSpinning = false;
     private float _targetRotation;
     private float _spinStartTime;
@@ -15,9 +16,11 @@ public class SpinTheWheel : MonoBehaviour
     [SerializeField] IntVariable TotalSlicesSo;
     [SerializeField] IntVariable multiplierSo;
     [SerializeField] IntVariable coinsSo;
-    [SerializeField] SpinWheelConfigurationsSo SpinWheelConfig;
     [SerializeField] JsonReaderSO JsonReaderSO;
     [SerializeField] Button SpinBtn;
+
+    [Header("Config File")]
+    [SerializeField] SpinWheelConfigurationsSo SpinWheelConfig;
 
     public static Action<int> SpinWheelStopedAction;
 
@@ -35,8 +38,18 @@ public class SpinTheWheel : MonoBehaviour
     {
         TotalSlicesSo.value = JsonReaderSO.data.rewards.Length;
         SpinWheelConfig.StopIndex = SpinWheelConfig.StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
-        _stopIndexBackEnd = SpinWheelConfig.StopIndex + (SpinWheelConfig.LeastCycles * TotalSlicesSo.value);
-        multiplierSo.value = JsonReaderSO.data.rewards[SpinWheelConfig.StopIndex].multiplier;
+        _stopIndexTemp = SpinWheelConfig.StopIndex;
+        if(SpinWheelConfig.RotationDirection==RotationDirection.Clockwise) 
+        {
+            // When clocwise is set(if index 1 is passed it will stop at (totalSlices-1)nth index)
+            // Thats why we are adjusting the index accordingly
+            _stopIndexTemp = TotalSlicesSo.value - _stopIndexTemp;
+            _stopIndexTemp %= TotalSlicesSo.value;
+            //print($"_stopIndexTemp {_stopIndexTemp}");
+            //SpinWheelConfig.StopIndex = TotalSlicesSo.value - SpinWheelConfig.StopIndex;
+        }
+        _stopIndexBackEnd = _stopIndexTemp + (SpinWheelConfig.RotateCyclesBeforeStopping * TotalSlicesSo.value);
+        multiplierSo.value = JsonReaderSO.data.rewards[_stopIndexTemp].multiplier;
         coinsSo.value = JsonReaderSO.data.coins;
     }
 
@@ -61,16 +74,16 @@ public class SpinTheWheel : MonoBehaviour
 
         while (_isSpinning)
         {
-            float elapsed = Time.time - _spinStartTime;
-            float t = elapsed / SpinWheelConfig.SpinDuration;
-            float curveValue = SpinWheelConfig.RotationCurve.Evaluate(t);
-            float currentRotation = Mathf.SmoothStep(0f, _targetRotation, curveValue);
+            float _elapsed = Time.time - _spinStartTime;
+            float _t = _elapsed / SpinWheelConfig.SpinDuration;
+            float _curveValue = SpinWheelConfig.RotationCurve.Evaluate(_t);
+            float _currentRotation = Mathf.SmoothStep(0f, _targetRotation, _curveValue);
 
             // Apply rotation to the spinner transform
-            ObjectToRotate.rotation = Quaternion.Euler(0f, 0f, currentRotation);
+            ObjectToRotate.rotation = Quaternion.Euler(0f, 0f, _currentRotation);
 
             // Check if spinning should stop
-            if (elapsed >= SpinWheelConfig.SpinDuration)
+            if (_elapsed >= SpinWheelConfig.SpinDuration)
             {
                 _isSpinning = false;
                 // Optionally, you can adjust the rotation to align perfectly with the target angle
@@ -80,7 +93,7 @@ public class SpinTheWheel : MonoBehaviour
         }
 
         if (SpinWheelStopedAction != null)
-            SpinWheelStopedAction(SpinWheelConfig.StopIndex);
+            SpinWheelStopedAction(_stopIndexTemp);
         SpinBtn.interactable = true;
     }
 }
