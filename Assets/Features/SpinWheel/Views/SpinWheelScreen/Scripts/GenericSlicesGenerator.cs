@@ -24,11 +24,11 @@ public class GenericSlicesGenerator : MonoBehaviour
     }
     private void OnEnable()
     {
-        SpinnerFlowController.ResetSpinner += GenerateSpinWheelSlices;
+        SpinnerFlowController.ResetSpinner += RedrawSpinner;
     }
     private void OnDisable()
     {
-        SpinnerFlowController.ResetSpinner += GenerateSpinWheelSlices;
+        SpinnerFlowController.ResetSpinner += RedrawSpinner;
     }
 
     [Button("Generate Spin Wheel Slices")]
@@ -38,11 +38,15 @@ public class GenericSlicesGenerator : MonoBehaviour
         totalSlicesInsideWheel = TotalSlicesSo.value;
         if (totalSlicesInsideWheel >= minLimit && totalSlicesInsideWheel <= maxLimit)
         {
-            Regenerate();
-            SpawnSlices();
+            RedrawSpinner();
         }
         else
             Debug.LogError($"Out of Range!! No of slices must be between {minLimit} to {maxLimit}");
+    }
+    private void RedrawSpinner()
+    {
+        Regenerate();
+        SpawnSlices();
     }
   
     private void Regenerate()

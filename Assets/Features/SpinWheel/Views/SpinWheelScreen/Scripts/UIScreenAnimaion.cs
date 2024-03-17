@@ -73,6 +73,13 @@ public class UIScreenAnimaion : ScriptableObject
             _uiElement.DOAnchorPos(offScreenPosition, InOutFromScreenSo.Duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
         }
     }
+    public void AnimateOut(float duration)
+    {
+        if (_uiElement != null)
+        {
+            _uiElement.DOAnchorPos(offScreenPosition, duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
+        }
+    }
 
     public void AnimateIn()
     {

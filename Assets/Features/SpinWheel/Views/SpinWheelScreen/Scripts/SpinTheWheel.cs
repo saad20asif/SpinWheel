@@ -1,4 +1,5 @@
 using MPUIKIT;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -32,10 +33,12 @@ public class SpinTheWheel : MonoBehaviour
     private void OnEnable()
     {
         SpinBtn.onClick.AddListener(SpinWheel);
+        SpinnerFlowController.ResetSpinner += ResetTheWheelRotation;
     }
     private void OnDisable()
     {
         SpinBtn.onClick.RemoveListener(SpinWheel);
+        SpinnerFlowController.ResetSpinner -= ResetTheWheelRotation;
     }
 
 
@@ -69,6 +72,10 @@ public class SpinTheWheel : MonoBehaviour
     private void ChooseProbabiltyBaseRandomIndex()
     {
         SpinWheelConfig.StopIndex = ProbabilityBaseRandomChooser.ChooseRandomValue();
+    }
+    public void ResetTheWheelRotation() // index which is on the top in JsonReaderSo should also be on the top of the wheel
+    {
+        ObjectToRotate.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
     private void SpinWheel()
     {
@@ -112,12 +119,19 @@ public class SpinTheWheel : MonoBehaviour
         }
         SpinnerRotationCompleted();
     }
+    [Button("Shuffle")]
+    private void shuff()
+    {
+        JsonReaderSO.ShuffleValues();
+    }
     private void SpinnerRotationCompleted()
     {
         MPImage selectedImage = SlicesParent.GetChild(SpinWheelConfig.StopIndex).GetComponent<MPImage>();
         EffectsSo.GlowImage(selectedImage);
         if (SpinWheelStopedAction != null)
             SpinWheelStopedAction(SpinWheelConfig.StopIndex);
-        //SpinBtn.interactable = true;
+        
+        if(SpinWheelConfig.TestMode)
+            SpinBtn.interactable = true;
     }
 }

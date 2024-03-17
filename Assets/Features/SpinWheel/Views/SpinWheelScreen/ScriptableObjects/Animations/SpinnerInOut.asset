@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: SpinnerInOut
   m_EditorClassIdentifier: 
   _uiElement: {fileID: 0}
-  animationDuration: 1
+  InOutFromScreenSo: {fileID: 11400000, guid: a96147dff894d184aa4781b143f8e939, type: 2}
   offset: 0
-  initialDelay: 1
   moveDirection: 0
-  ease: 6

@@ -64,11 +64,12 @@ public class JsonReaderSO : JsonReaderBase<ConfigData>
             ProbabilityBaseRandomChooser.Probabilities[i] = data.rewards[i].probability;
         }
     }
-    private void ShuffleValues()
+    public void ShuffleValues()
     {
         for (int i = data.rewards.Length - 1; i > 0; i--)
         {
             int randomIndex = Random.Range(0, i + 1);
+            //Debug.Log("randomIndex : " + randomIndex);
             SpinnerWheelSlice tempSlice = data.rewards[i];
             data.rewards[i] = data.rewards[randomIndex];
             data.rewards[randomIndex] = tempSlice;
