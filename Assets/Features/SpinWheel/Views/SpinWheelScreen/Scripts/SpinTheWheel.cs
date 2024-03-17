@@ -43,6 +43,8 @@ public class SpinTheWheel : MonoBehaviour
     {
         TotalSlicesSo.value = JsonReaderSO.data.rewards.Length;
         SpinWheelConfig.StopIndex = SpinWheelConfig.StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
+
+        // updating So variables
         multiplierSo.value = JsonReaderSO.data.rewards[SpinWheelConfig.StopIndex].multiplier;
         coinsSo.value = JsonReaderSO.data.coins;
 
@@ -108,6 +110,10 @@ public class SpinTheWheel : MonoBehaviour
             }
             yield return null;
         }
+        SpinnerRotationCompleted();
+    }
+    private void SpinnerRotationCompleted()
+    {
         MPImage selectedImage = SlicesParent.GetChild(SpinWheelConfig.StopIndex).GetComponent<MPImage>();
         EffectsSo.GlowImage(selectedImage);
         if (SpinWheelStopedAction != null)

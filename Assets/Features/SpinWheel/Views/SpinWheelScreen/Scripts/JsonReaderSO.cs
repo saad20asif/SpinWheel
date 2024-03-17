@@ -47,6 +47,7 @@ public class JsonReaderSO : JsonReaderBase<ConfigData>
 
     public void LoadDataFromFile()
     {
+        ResetData();
         string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
         LoadData(filePath);
         AssignValuesToRandomChooseSo();
@@ -63,7 +64,7 @@ public class JsonReaderSO : JsonReaderBase<ConfigData>
             ProbabilityBaseRandomChooser.Probabilities[i] = data.rewards[i].probability;
         }
     }
-    public void ResetData()
+    private void ResetData()
     {
         // Reset slicesData to default values or clear it
         data.coins = 0;

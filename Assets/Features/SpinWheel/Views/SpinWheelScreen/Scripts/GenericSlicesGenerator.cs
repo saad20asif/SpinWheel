@@ -19,16 +19,14 @@ public class GenericSlicesGenerator : MonoBehaviour
     private void Start()
     {
         // If SpinWheel not generated in editor mode or maybe you have changed some values in json later on
-        // So i must redraw everytime the game plays
+        // So we must redraw spinner with updated values and configurations when the game plays
         GenerateSpinWheelSlices();
     }
-
-
 
     [Button("Generate Spin Wheel Slices")]
     private void GenerateSpinWheelSlices()
     {
-        LoadFromJson();
+        JsonReaderSO.LoadDataFromFile();
         totalSlicesInsideWheel = TotalSlicesSo.value;
         if (totalSlicesInsideWheel >= minLimit && totalSlicesInsideWheel <= maxLimit)
         {
@@ -39,11 +37,7 @@ public class GenericSlicesGenerator : MonoBehaviour
             Debug.LogError($"Out of Range!! No of slices must be between {minLimit} to {maxLimit}");
     }
     //[Button("Load Data From Json")]
-    private void LoadFromJson()
-    {
-        JsonReaderSO.ResetData();
-        JsonReaderSO.LoadDataFromFile();
-    }
+  
     private void Regenerate()
     {
         SlicesParent.localEulerAngles = Vector3.zero;
