@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpinnerMovementsHandler : MonoBehaviour
+public class InOutFromScreenMovementHandler : MonoBehaviour
 {
     [SerializeField] UIScreenAnimaion SpinnerInOut;
     private void OnEnable()

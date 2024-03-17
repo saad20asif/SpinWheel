@@ -22,6 +22,14 @@ public class GenericSlicesGenerator : MonoBehaviour
         // So we must redraw spinner with updated values and configurations when the game plays
         GenerateSpinWheelSlices();
     }
+    private void OnEnable()
+    {
+        SpinnerFlowController.ResetSpinner += GenerateSpinWheelSlices;
+    }
+    private void OnDisable()
+    {
+        SpinnerFlowController.ResetSpinner += GenerateSpinWheelSlices;
+    }
 
     [Button("Generate Spin Wheel Slices")]
     private void GenerateSpinWheelSlices()
@@ -36,7 +44,6 @@ public class GenericSlicesGenerator : MonoBehaviour
         else
             Debug.LogError($"Out of Range!! No of slices must be between {minLimit} to {maxLimit}");
     }
-    //[Button("Load Data From Json")]
   
     private void Regenerate()
     {

@@ -118,6 +118,6 @@ public class SpinTheWheel : MonoBehaviour
         EffectsSo.GlowImage(selectedImage);
         if (SpinWheelStopedAction != null)
             SpinWheelStopedAction(SpinWheelConfig.StopIndex);
-        SpinBtn.interactable = true;
+        //SpinBtn.interactable = true;
     }
 }
