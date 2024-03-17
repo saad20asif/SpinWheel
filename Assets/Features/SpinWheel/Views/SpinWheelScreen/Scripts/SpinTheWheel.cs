@@ -1,3 +1,4 @@
+using MPUIKIT;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class SpinTheWheel : MonoBehaviour
     [SerializeField] IntVariable multiplierSo;
     [SerializeField] IntVariable coinsSo;
     [SerializeField] JsonReaderSO JsonReaderSO;
+    [SerializeField] Effects EffectsSo;
+    [SerializeField] Transform SlicesParent;
     [SerializeField] ProbabilityBaseRandomChooser ProbabilityBaseRandomChooser;
     
     [SerializeField] Button SpinBtn;
@@ -41,16 +44,21 @@ public class SpinTheWheel : MonoBehaviour
         TotalSlicesSo.value = JsonReaderSO.data.rewards.Length;
         SpinWheelConfig.StopIndex = SpinWheelConfig.StopIndex % TotalSlicesSo.value; // Making sure that its between (0-totalSlicesInsideSpinner) range
         _stopIndexTemp = SpinWheelConfig.StopIndex;
-        if(SpinWheelConfig.RotationDirection==RotationDirection.Clockwise) 
+
+        
+        if (SpinWheelConfig.RotationDirection==RotationDirection.Clockwise) 
         {
             // When clocwise is set(if index 1 is passed it will stop at (totalSlices-1)nth index)
             // Thats why we are adjusting the index accordingly
             _stopIndexTemp = TotalSlicesSo.value - _stopIndexTemp;
             _stopIndexTemp %= TotalSlicesSo.value;
-            //print($"_stopIndexTemp {_stopIndexTemp}");
-            //SpinWheelConfig.StopIndex = TotalSlicesSo.value - SpinWheelConfig.StopIndex;
         }
-        _stopIndexBackEnd = _stopIndexTemp + (SpinWheelConfig.RotateCyclesBeforeStopping * TotalSlicesSo.value);
+        int rotateCyclesBeforeStopping = SpinWheelConfig.RotateCyclesBeforeStopping;
+        if(rotateCyclesBeforeStopping<=0)
+        {
+            rotateCyclesBeforeStopping = SpinWheelConfig.RotateCyclesBeforeStopping = 1;
+        }
+        _stopIndexBackEnd = _stopIndexTemp + (rotateCyclesBeforeStopping * TotalSlicesSo.value);
         multiplierSo.value = JsonReaderSO.data.rewards[_stopIndexTemp].multiplier;
         coinsSo.value = JsonReaderSO.data.coins;
     }
@@ -64,7 +72,8 @@ public class SpinTheWheel : MonoBehaviour
         if (!_isSpinning)
         {
             SpinBtn.interactable = false;
-            ChooseProbabiltyBaseRandomIndex();
+            if(!SpinWheelConfig.TestMode)  // if testmode not enabled
+                ChooseProbabiltyBaseRandomIndex();
             SetTheStopIndex();
             // Calculate the target rotation angle based on the stop index and rotation direction
             float rotationMultiplier = SpinWheelConfig.RotationDirection == RotationDirection.Clockwise ? -1f : 1f;
@@ -98,7 +107,8 @@ public class SpinTheWheel : MonoBehaviour
             }
             yield return null;
         }
-
+        MPImage selectedImage = SlicesParent.GetChild(SpinWheelConfig.StopIndex).GetComponent<MPImage>();
+        EffectsSo.GlowImage(selectedImage);
         if (SpinWheelStopedAction != null)
             SpinWheelStopedAction(_stopIndexTemp);
         SpinBtn.interactable = true;
