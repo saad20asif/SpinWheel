@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9147681093012323136}
   - component: {fileID: 3489846109798152971}
   - component: {fileID: 1865224074063951726}
-  - component: {fileID: 6927549400131411108}
   - component: {fileID: 4262145057353207609}
   m_Layer: 0
   m_Name: Slice
@@ -153,21 +152,6 @@ MonoBehaviour:
     - {r: 0, g: 0, b: 1, a: 1}
     - {r: 0, g: 0, b: 0, a: 1}
     m_Rotation: 0
---- !u!114 &6927549400131411108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6230359225555235889}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c67d15deedb1d304fa0827660e616889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  circleImage: {fileID: 1865224074063951726}
-  textRect: {fileID: 0}
-  iconRect: {fileID: 0}
 --- !u!114 &4262145057353207609
 MonoBehaviour:
   m_ObjectHideFlags: 0

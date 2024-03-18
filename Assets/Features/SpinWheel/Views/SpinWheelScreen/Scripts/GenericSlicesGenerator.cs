@@ -1,6 +1,7 @@
 using MPUIKIT;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using TMPro;
 
 // Note : No.of slices inside spin wheel depends on your json file
 public class GenericSlicesGenerator : MonoBehaviour
@@ -16,7 +17,6 @@ public class GenericSlicesGenerator : MonoBehaviour
     [SerializeField] string spinWheelSlicePrefabName;
  
     [SerializeField] Transform SlicesParent;
-    [SerializeField] Transform AllTextsParent;
     [SerializeField] JsonReaderSO JsonReaderSO;
     [SerializeField] IntVariable TotalSlicesSo;
 
@@ -36,28 +36,21 @@ public class GenericSlicesGenerator : MonoBehaviour
     }
     
     
-    [Button("GenerateTexts")]
     private void GenerateTexts()
     {
         float currentAngle = 0;
         float rotationangle = 360 / (float)totalSlicesInsideWheel;
-        DeletePrevious();
         for (int i = 0; i < totalSlicesInsideWheel; i++)
         {
-            GameObject textPrefb = Instantiate(Resources.Load(_sliceTextPrefabName),AllTextsParent)as GameObject;
+            GameObject textPrefb = Instantiate(Resources.Load(_sliceTextPrefabName),SlicesParent.GetChild(i))as GameObject;
             textPrefb.transform.Rotate(0,0,currentAngle);
             Vector2 pos = textPrefb.transform.GetChild(0).transform.localPosition;
             pos.y += _yTextsOffset;
             textPrefb.transform.GetChild(0).transform.localPosition = pos;
+            textPrefb.transform.localEulerAngles = new Vector3(0, 0, rotationangle / 2);
+            SlicesParent.GetChild(i).GetComponent<SliceInfo>().MultiplierText = textPrefb.GetComponentInChildren<TextMeshProUGUI>();
+            textPrefb.GetComponentInChildren<TextMeshProUGUI>().text = $"x {JsonReaderSO.data.rewards[i].multiplier}";
             currentAngle += rotationangle;
-        }
-    }
-    private void DeletePrevious()
-    {
-        print(AllTextsParent.childCount);
-        for (int i = AllTextsParent.childCount-1; i >= 0; i--)
-        {
-            DestroyImmediate(AllTextsParent.GetChild(i).gameObject); 
         }
     }
 
@@ -119,41 +112,17 @@ public class GenericSlicesGenerator : MonoBehaviour
             {
                 rotationAngle += 360f;
             }
-
+            print("i : " + i);
+            print("i : " + slice.GetComponent<SliceInfo>().Probability);
+            print("i : " + JsonReaderSO.data.rewards[i].probability);
             slice.GetComponent<SliceInfo>().Probability = JsonReaderSO.data.rewards[i].probability;
             slice.GetComponent<SliceInfo>().Multiplier = JsonReaderSO.data.rewards[i].multiplier;
             slice.GetComponent<SliceInfo>().SetColor(JsonReaderSO.data.rewards[i].Color);
 
-            // slice.GetComponent<SliceInfo>().MultiplierText =
-            //     AllTextsParent.GetChild(i).GetComponent<MyText>().MultiplierText;
-            // AllTextsParent.GetChild(i).SetParent(slice.transform);
-        }
+            //slice.GetComponent<SliceInfo>().MultiplierText =
+            //    AllTextsParent.GetChild(i).GetComponent<MyText>().MultiplierText;
 
-        for (int i = totalSlicesInsideWheel - 1; i >= 0; i--)
-        {
-            Transform textTransform = AllTextsParent.GetChild(i);
-            Transform sliceTransform = SlicesParent.GetChild(i);
-        
-            // Set the parent of the text to the slice
-            textTransform.SetParent(sliceTransform);
-        
-            // Reset the local position and rotation of the text
-            textTransform.localPosition = Vector3.zero;
-            textTransform.localRotation = Quaternion.identity;
-        
-            // Reset the rectTransform component of the text
-            RectTransform textRectTransform = textTransform.GetComponent<RectTransform>();
-            if (textRectTransform != null)
-            {
-                textRectTransform.sizeDelta = Vector2.zero;
-                textRectTransform.anchorMin = Vector2.zero;
-                textRectTransform.anchorMax = Vector2.one;
-                textRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            }
-        
-            textRectTransform.localEulerAngles = new Vector3(0, 0, rotationAngle / 2);
         }
-
     }
 
 

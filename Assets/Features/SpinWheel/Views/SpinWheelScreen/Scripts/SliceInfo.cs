@@ -6,7 +6,6 @@ public class SliceInfo : MonoBehaviour
 {
     [SerializeField] private MPImage circleImage;
     [SerializeField] private TextMeshProUGUI multiplierText;
-    [SerializeField] private RectTransform iconRect;
     [SerializeField] private float probability;
     [SerializeField] private int multiplier;
 
@@ -20,11 +19,6 @@ public class SliceInfo : MonoBehaviour
     {
         get { return circleImage; }
         set { circleImage = value; }
-    }
-    public RectTransform IconRect
-    {
-        get { return iconRect; }
-        set { iconRect = value; }
     }
     public float Probability
     {
