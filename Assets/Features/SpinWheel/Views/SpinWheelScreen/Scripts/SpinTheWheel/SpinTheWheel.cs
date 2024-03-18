@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MPUIKIT;
 using Sirenix.OdinInspector;
 using System;
@@ -64,7 +65,7 @@ namespace SpinTheWheel
                 _stopIndexTemp %= TotalSlicesSo.value;
             }
             int rotateCyclesBeforeStopping = SpinWheelConfig.RotateCyclesBeforeStopping;
-            if (rotateCyclesBeforeStopping <= 0)
+            if (rotateCyclesBeforeStopping <= 0)//clamping
             {
                 rotateCyclesBeforeStopping = SpinWheelConfig.RotateCyclesBeforeStopping = 1;
             }
@@ -86,6 +87,8 @@ namespace SpinTheWheel
                 SpinBtn.interactable = false;
                 if (!SpinWheelConfig.TestMode)  // if testmode not enabled
                     ChooseProbabiltyBaseRandomIndex();
+                int previousStopIndex = SpinWheelConfig.StopIndex;
+                print($"previousStopIndex {previousStopIndex}");
                 SetTheStopIndex();
                 // Calculate the target rotation angle based on the stop index and rotation direction
                 float rotationMultiplier = SpinWheelConfig.RotationDirection == RotationDirection.Clockwise ? -1f : 1f;
@@ -120,6 +123,8 @@ namespace SpinTheWheel
                 yield return null;
             }
             SpinnerRotationCompleted();
+            if(SpinWheelConfig.TestMode)
+                Invoke(nameof(ResetToIntialRotation), 1f);
         }
         [Button("Shuffle")]
         private void shuff()
@@ -133,8 +138,13 @@ namespace SpinTheWheel
             if (SpinWheelStopedAction != null)
                 SpinWheelStopedAction(SpinWheelConfig.StopIndex);
 
-            if (SpinWheelConfig.TestMode)
-                SpinBtn.interactable = true;
+            //if (SpinWheelConfig.TestMode)
+            //    SpinBtn.interactable = true;
+        }
+        private void ResetToIntialRotation()
+        {
+            ObjectToRotate.DOLocalRotate(Vector3.zero, 0.3f).SetEase(Ease.OutBack).OnComplete(() => SpinBtn.interactable = true);
+
         }
     }
 }

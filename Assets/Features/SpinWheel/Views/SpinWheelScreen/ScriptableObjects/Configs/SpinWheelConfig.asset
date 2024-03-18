@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SpinWheelConfig
   m_EditorClassIdentifier: 
   spinDuration: 5
-  rotateCyclesBeforeStopping: 10
-  rotationDirection: 1
+  rotateCyclesBeforeStopping: 1
+  rotationDirection: 0
   rotationCurve:
     serializedVersion: 2
     m_Curve:
@@ -40,4 +40,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   testMode: 1
-  stopIndex: 2
+  stopIndex: 3

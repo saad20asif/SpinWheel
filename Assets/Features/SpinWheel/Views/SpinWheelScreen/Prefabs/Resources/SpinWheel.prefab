@@ -3642,6 +3642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 1628098218525411432, guid: 69667339bda626d43b581926479829f7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 113.63
+      objectReference: {fileID: 0}
     - target: {fileID: 2301876861672485525, guid: 69667339bda626d43b581926479829f7, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3693,6 +3697,14 @@ PrefabInstance:
     - target: {fileID: 6887992156239652972, guid: 69667339bda626d43b581926479829f7, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -457.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606449869280210053, guid: 69667339bda626d43b581926479829f7, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606449869280210053, guid: 69667339bda626d43b581926479829f7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7966954964867442573, guid: 69667339bda626d43b581926479829f7, type: 3}
       propertyPath: m_AnchoredPosition.x

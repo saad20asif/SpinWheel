@@ -76,9 +76,9 @@ namespace SpinTheWheel
                 yield return new WaitUntil(() => _spinned);
                 RewardAndmultiplierContainerInOut.AnimateIn();
                 _spinned = false;
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2);
                 SpinnerInOut.AnimateOut();
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2);
                 ShuffleDataInJsonAndResetSpinner();
                 SpinnerInOut.AnimateIn();
                 yield return new WaitForSeconds(1);
