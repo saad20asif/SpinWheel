@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d3615ca69ea39439bbae248b6e39e3, type: 3}
   m_Name: SpinWheelConfig
   m_EditorClassIdentifier: 
-  spinDuration: 5
-  rotateCyclesBeforeStopping: 1
+  spinDuration: 3
+  rotateCyclesBeforeStopping: 8
   rotationDirection: 0
   rotationCurve:
     serializedVersion: 2
@@ -21,18 +21,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -40,4 +40,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   testMode: 1
-  stopIndex: 3
+  stopIndex: 2
