@@ -23,6 +23,7 @@ public class SpinnerFlowController : MonoBehaviour
 
     private void Awake()
     {
+        print("Path : "+Application.persistentDataPath);
         if (SpinWheelConfigurationsSo.TestMode)
         {
             gameObject.SetActive(false);
