@@ -336,9 +336,69 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 501640351422849422, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 13.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2000308042218414570, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 375.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255792951522913742, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -36.170013
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255792951522913742, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 18.084991
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255792951522913742, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.8449974
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383323192015353932, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_text
+      value: x 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109374574587105369, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -34.199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109374574587105369, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 17.100002
+      objectReference: {fileID: 0}
     - target: {fileID: 4133650063227308822, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_Name
       value: SpinWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935798629953485997, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 375.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178256084696990139, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178256084696990139, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d445716dd2dd7d40a60ee4047a83a32, type: 3}
+    - target: {fileID: 6178256084696990139, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178256084696990139, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178256084696990139, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839114623906766403, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50.3
       objectReference: {fileID: 0}
     - target: {fileID: 7393946611231444804, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_Pivot.x
@@ -419,6 +479,26 @@ PrefabInstance:
     - target: {fileID: 7393946611231444804, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617506662189053078, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3d445716dd2dd7d40a60ee4047a83a32, type: 3}
+    - target: {fileID: 8617506662189053078, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617506662189053078, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8617506662189053078, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971368096422973876, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
+      propertyPath: m_text
+      value: <sprite=0>1000
       objectReference: {fileID: 0}
     - target: {fileID: 9188366641995500821, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_BlockingMask.m_Bits
