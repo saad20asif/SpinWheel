@@ -10,7 +10,12 @@ public class SliceInfo : MonoBehaviour
     [SerializeField] private float probability;
     [SerializeField] private int multiplier;
 
-    // Getter and setter for circleImage
+    
+    public TextMeshProUGUI MultiplierText
+    {
+        get { return multiplierText; }
+        set { multiplierText = value; }
+    }
     public MPImage CircleImage
     {
         get { return circleImage; }

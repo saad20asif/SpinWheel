@@ -101,6 +101,7 @@ public class GenericSlicesGenerator : MonoBehaviour
         SlicesParent.localEulerAngles = Vector3.zero;
         SlicesParent.Rotate(0, 0, -rotateBy / 2); // to keep it in center
 
+        
         for (int i = 0; i < totalSlicesInsideWheel; i++)
         {
             slice = Instantiate(Resources.Load(spinWheelSlicePrefabName), SlicesParent) as GameObject;
@@ -122,7 +123,37 @@ public class GenericSlicesGenerator : MonoBehaviour
             slice.GetComponent<SliceInfo>().Probability = JsonReaderSO.data.rewards[i].probability;
             slice.GetComponent<SliceInfo>().Multiplier = JsonReaderSO.data.rewards[i].multiplier;
             slice.GetComponent<SliceInfo>().SetColor(JsonReaderSO.data.rewards[i].Color);
+
+            // slice.GetComponent<SliceInfo>().MultiplierText =
+            //     AllTextsParent.GetChild(i).GetComponent<MyText>().MultiplierText;
+            // AllTextsParent.GetChild(i).SetParent(slice.transform);
         }
+
+        for (int i = totalSlicesInsideWheel - 1; i >= 0; i--)
+        {
+            Transform textTransform = AllTextsParent.GetChild(i);
+            Transform sliceTransform = SlicesParent.GetChild(i);
+        
+            // Set the parent of the text to the slice
+            textTransform.SetParent(sliceTransform);
+        
+            // Reset the local position and rotation of the text
+            textTransform.localPosition = Vector3.zero;
+            textTransform.localRotation = Quaternion.identity;
+        
+            // Reset the rectTransform component of the text
+            RectTransform textRectTransform = textTransform.GetComponent<RectTransform>();
+            if (textRectTransform != null)
+            {
+                textRectTransform.sizeDelta = Vector2.zero;
+                textRectTransform.anchorMin = Vector2.zero;
+                textRectTransform.anchorMax = Vector2.one;
+                textRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            }
+        
+            textRectTransform.localEulerAngles = new Vector3(0, 0, rotationAngle / 2);
+        }
+
     }
 
 
