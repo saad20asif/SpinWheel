@@ -94,7 +94,7 @@ MonoBehaviour:
     m_CornerRadius: {x: 0, y: 0, z: 0, w: 0}
     m_UniformCornerRadius: 0
   m_Circle:
-    m_Radius: 300
+    m_Radius: 290
     m_FitRadius: 0
   m_Pentagon:
     m_CornerRadius: {x: 0, y: 0, z: 0, w: 0}
@@ -166,6 +166,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circleImage: {fileID: 1865224074063951726}
   multiplierText: {fileID: 0}
-  iconRect: {fileID: 0}
   probability: 0
   multiplier: 0

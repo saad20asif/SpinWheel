@@ -25,7 +25,6 @@ namespace SpinTheWheel
 
         private void Awake()
         {
-            print("Path : " + Application.persistentDataPath);
             if (SpinWheelConfigurationsSo.TestMode)
             {
                 gameObject.SetActive(false);
@@ -35,7 +34,7 @@ namespace SpinTheWheel
         }
         private void Start()
         {
-            RewardAndmultiplierContainerInOut.AnimateOut(0);
+            RewardAndmultiplierContainerInOut.ScaleDown(0);
             MiniStateMachineCo = StartCoroutine(Tick());
         }
 
@@ -74,16 +73,22 @@ namespace SpinTheWheel
             while (true)
             {
                 yield return new WaitUntil(() => _spinned);
-                RewardAndmultiplierContainerInOut.AnimateIn();
                 _spinned = false;
-                yield return new WaitForSeconds(2);
+
                 SpinnerInOut.AnimateOut();
+
+                yield return new WaitForSeconds(0.5f);
+
+                RewardAndmultiplierContainerInOut.ScaleUp(0.7f);
+
                 yield return new WaitForSeconds(2);
+
                 ShuffleDataInJsonAndResetSpinner();
+                RewardAndmultiplierContainerInOut.ScaleDown(0.3f);
                 SpinnerInOut.AnimateIn();
+
                 yield return new WaitForSeconds(1);
-                RewardAndmultiplierContainerInOut.AnimateOut();
-                yield return new WaitForSeconds(1);
+
                 SpinBtn.interactable = true;
                 yield return null; // Yield to the next frame
             }

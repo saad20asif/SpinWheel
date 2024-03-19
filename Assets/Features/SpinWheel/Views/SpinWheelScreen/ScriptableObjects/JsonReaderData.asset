@@ -21,9 +21,9 @@ MonoBehaviour:
     - multiplier: 10
       probability: 0.2
       color: '#F9536E'
-    - multiplier: 20
-      probability: 0.15
-      color: '#FF9C43'
+    - multiplier: 500
+      probability: 0.01
+      color: '#B75DF7'
     - multiplier: 50
       probability: 0.1
       color: '#FF75CB'
@@ -36,10 +36,10 @@ MonoBehaviour:
     - multiplier: 200
       probability: 0.02
       color: '#5E6DFF'
-    - multiplier: 500
-      probability: 0.01
-      color: '#B75DF7'
+    - multiplier: 20
+      probability: 0.15
+      color: '#FF9C43'
   _totalCoinsSo: {fileID: 11400000, guid: de27e8c1c87d36a4c8dbb6d178ea1759, type: 2}
   _totalSlicesSo: {fileID: 11400000, guid: 3165ecfe206d29b4fa4963537e1e1795, type: 2}
   ProbabilityBaseRandomChooser: {fileID: 11400000, guid: 978e8f17696a7454c932de08f25a89cc, type: 2}
-  jsonFilePath: C:\Users\Saad Asif\SpinWheel\Assets\data.json
+  jsonFileName: data
