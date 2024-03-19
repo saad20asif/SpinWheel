@@ -1,30 +1,31 @@
 using UnityEngine;
-using System.IO;
 
 public abstract class JsonReaderBase<T> : ScriptableObject where T : new()
 {
     public T data;
 
-    public void LoadData(string jsonFilePath)
+    public void LoadData(string jsonFileName)
     {
-        if (string.IsNullOrEmpty(jsonFilePath))
+        if (string.IsNullOrEmpty(jsonFileName))
         {
-            Debug.LogError("JSON file path is not set!");
+            Debug.LogError("JSON file name is not set!");
             return;
         }
 
-        string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
+        T loadedData = default(T);
 
-        if (File.Exists(filePath))
+        // Load the TextAsset from Resources folder
+        TextAsset jsonFile = Resources.Load<TextAsset>(jsonFileName);
+        if (jsonFile != null)
         {
-            string jsonString = File.ReadAllText(filePath);
-            data = JsonUtility.FromJson<T>(jsonString);
+            string jsonString = jsonFile.text;
+            loadedData = JsonUtility.FromJson<T>(jsonString);
         }
         else
         {
-            Debug.LogError("JSON file not found at path: " + filePath);
+            Debug.LogError("JSON file not found with name: " + jsonFileName);
         }
-    }
 
-    //public abstract void ResetData();
+        data = loadedData;
+    }
 }
