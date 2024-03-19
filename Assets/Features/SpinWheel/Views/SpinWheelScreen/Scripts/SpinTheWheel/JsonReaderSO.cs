@@ -69,11 +69,23 @@ public class ConfigData
         {
             for (int i = data.rewards.Length - 1; i > 0; i--)
             {
-                int _randomIndex = Random.Range(0, i + 1);
-                //Debug.Log("randomIndex : " + randomIndex);
+                int randomIndex = Random.Range(0, i + 1);
+                //Debug.Log($"{i} and {randomIndex} swapped");
+
+                // Swap rewards array elements
                 SpinnerWheelSlice tempSlice = data.rewards[i];
-                data.rewards[i] = data.rewards[_randomIndex];
-                data.rewards[_randomIndex] = tempSlice;
+                data.rewards[i] = data.rewards[randomIndex];
+                data.rewards[randomIndex] = tempSlice;
+
+                // Swap Values array elements in ProbabilityBaseRandomChooser
+                int tempValue = ProbabilityBaseRandomChooser.Values[i];
+                ProbabilityBaseRandomChooser.Values[i] = ProbabilityBaseRandomChooser.Values[randomIndex];
+                ProbabilityBaseRandomChooser.Values[randomIndex] = tempValue;
+
+                // Swap Probabilities array elements in ProbabilityBaseRandomChooser
+                float tempProbability = ProbabilityBaseRandomChooser.Probabilities[i];
+                ProbabilityBaseRandomChooser.Probabilities[i] = ProbabilityBaseRandomChooser.Probabilities[randomIndex];
+                ProbabilityBaseRandomChooser.Probabilities[randomIndex] = tempProbability;
             }
         }
         private void ResetData()

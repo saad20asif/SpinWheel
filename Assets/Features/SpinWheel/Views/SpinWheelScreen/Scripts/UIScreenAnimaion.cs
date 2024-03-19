@@ -73,19 +73,28 @@ public class UIScreenAnimaion : ScriptableObject
             _uiElement.DOAnchorPos(offScreenPosition, InOutFromScreenSo.Duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
         }
     }
-    public void AnimateOut(float duration)
-    {
-        if (_uiElement != null)
-        {
-            _uiElement.DOAnchorPos(offScreenPosition, duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
-        }
-    }
 
     public void AnimateIn()
     {
         if (_uiElement != null)
         {
             _uiElement.DOAnchorPos(originalPosition, InOutFromScreenSo.Duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
+        }
+    }
+
+    public void ScaleDown(float duration)
+    {
+        if (_uiElement != null)
+        {
+            _uiElement.DOScale(Vector3.zero, duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
+        }
+    }
+
+    public void ScaleUp(float duration)
+    {
+        if (_uiElement != null)
+        {
+            _uiElement.DOScale(Vector3.one, duration).SetEase(InOutFromScreenSo.Ease).SetDelay(InOutFromScreenSo.Delay);
         }
     }
 }
