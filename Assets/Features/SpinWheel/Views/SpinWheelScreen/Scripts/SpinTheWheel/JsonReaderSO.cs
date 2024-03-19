@@ -43,14 +43,14 @@ public class ConfigData
         [SerializeField] private IntVariable _totalCoinsSo;
         [SerializeField] private IntVariable _totalSlicesSo;
         [SerializeField] ProbabilityBaseRandomChooser ProbabilityBaseRandomChooser;
-        [SerializeField] private string jsonFilePath; // Assign your JSON string in the Inspector
+        [SerializeField] private string jsonFileName; // Assign your JSON string in the Inspector
 
 
         public void LoadDataFromFile()
         {
             ResetData();
-            string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
-            LoadData(filePath);
+            //string filePath = Path.Combine(Application.persistentDataPath, jsonFilePath);
+            LoadData(jsonFileName);
             AssignValuesToRandomChooseSo();
             _totalSlicesSo.value = data.rewards.Length;
             _totalCoinsSo.value = data.coins;
@@ -69,11 +69,11 @@ public class ConfigData
         {
             for (int i = data.rewards.Length - 1; i > 0; i--)
             {
-                int randomIndex = Random.Range(0, i + 1);
+                int _randomIndex = Random.Range(0, i + 1);
                 //Debug.Log("randomIndex : " + randomIndex);
                 SpinnerWheelSlice tempSlice = data.rewards[i];
-                data.rewards[i] = data.rewards[randomIndex];
-                data.rewards[randomIndex] = tempSlice;
+                data.rewards[i] = data.rewards[_randomIndex];
+                data.rewards[_randomIndex] = tempSlice;
             }
         }
         private void ResetData()
