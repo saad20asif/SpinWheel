@@ -94,7 +94,7 @@ MonoBehaviour:
     m_CornerRadius: {x: 0, y: 0, z: 0, w: 0}
     m_UniformCornerRadius: 0
   m_Circle:
-    m_Radius: 420
+    m_Radius: 290
     m_FitRadius: 0
   m_Pentagon:
     m_CornerRadius: {x: 0, y: 0, z: 0, w: 0}

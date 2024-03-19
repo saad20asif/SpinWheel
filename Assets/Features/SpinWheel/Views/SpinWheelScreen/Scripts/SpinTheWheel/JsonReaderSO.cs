@@ -43,7 +43,7 @@ public class ConfigData
         [SerializeField] private IntVariable _totalCoinsSo;
         [SerializeField] private IntVariable _totalSlicesSo;
         [SerializeField] ProbabilityBaseRandomChooser ProbabilityBaseRandomChooser;
-        [SerializeField] private string jsonFileName; // Assign your JSON string in the Inspector
+        private string jsonFileName = "data"; // Assign your JSON string in the Inspector
 
 
         public void LoadDataFromFile()

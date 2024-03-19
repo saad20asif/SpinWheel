@@ -336,10 +336,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2255792951522913742, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -3.8450012
-      objectReference: {fileID: 0}
     - target: {fileID: 4133650063227308822, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_Name
       value: SpinWheel
@@ -423,10 +419,6 @@ PrefabInstance:
     - target: {fileID: 7393946611231444804, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8927809965363264130, guid: 94a4dd6a976df774c811bf366d1b2871, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
