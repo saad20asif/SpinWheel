@@ -88,7 +88,7 @@ namespace SpinTheWheel
                 if (!SpinWheelConfig.TestMode)  // if testmode not enabled
                     ChooseProbabiltyBaseRandomIndex();
                 int previousStopIndex = SpinWheelConfig.StopIndex;
-                print($"previousStopIndex {previousStopIndex}");
+                //print($"previousStopIndex {previousStopIndex}");
                 SetTheStopIndex();
                 // Calculate the target rotation angle based on the stop index and rotation direction
                 float rotationMultiplier = SpinWheelConfig.RotationDirection == RotationDirection.Clockwise ? -1f : 1f;
@@ -133,6 +133,7 @@ namespace SpinTheWheel
         }
         private void SpinnerRotationCompleted()
         {
+            
             MPImage selectedImage = SlicesParent.GetChild(SpinWheelConfig.StopIndex).GetComponent<MPImage>();
             EffectsSo.GlowImage(selectedImage);
             if (SpinWheelStopedAction != null)
