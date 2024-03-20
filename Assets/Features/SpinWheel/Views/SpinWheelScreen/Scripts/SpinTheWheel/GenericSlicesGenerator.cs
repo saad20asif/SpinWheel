@@ -2,6 +2,7 @@ using MPUIKIT;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using TMPro;
+using ProjectCore;
 
 // Note : No.of slices inside spin wheel depends on your json file
 

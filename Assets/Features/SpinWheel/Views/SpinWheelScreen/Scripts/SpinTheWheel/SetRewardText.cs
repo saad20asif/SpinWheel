@@ -1,6 +1,7 @@
 using TMPro;
 using DG.Tweening;
 using UnityEngine;
+using ProjectCore;
 
 namespace SpinTheWheel
 {

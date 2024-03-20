@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
+using ProjectCore;
 using UnityEngine.UI;
 
 namespace SpinTheWheel
